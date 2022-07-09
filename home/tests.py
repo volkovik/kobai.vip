@@ -10,7 +10,7 @@ from .models import Link
 class LinkIconTestCase(TestCase):
     """This test case checking SVG file validation of icon field in Link django model"""
 
-    DIR_PATH = "static/tests/LinkSVG/"  # Test files of the tests
+    DIR_PATH = "static/tests/home/link_icon"  # Test files of the tests
 
     def create_and_validate_example_model(self, file_name: str) -> None:
         with open(path.join(self.DIR_PATH, file_name), "rb") as file:
