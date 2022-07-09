@@ -27,6 +27,10 @@ class LinkIconTestCase(TestCase):
     def test_jpg_file(self) -> None:
         with self.assertRaises(ValidationError):
             self.create_and_validate_example_model("triangle.jpg")
+
+    def test_blank_svg_file(self) -> None:
+        with self.assertRaises(ValidationError):
+            self.create_and_validate_example_model("blank.svg")
     
     def test_invalid_svg_file(self) -> None:
         with self.assertRaises(ValidationError):
