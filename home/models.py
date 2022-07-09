@@ -1,12 +1,20 @@
+import re
 from django.core.exceptions import ValidationError
 from django.db import models
 
 
-def validate_svg_file(file) -> None:
+def validate_svg_file(file: models.FileField) -> None:
     """Validating SVG files for FileField in django models"""
     
     # Checking filetype in name of the file
     if file.name.split(".")[-1] != "svg":
+        raise SVGValidationError()
+
+    # Checking data structure of the file
+    svg_regex = re.compile(r"(?:<\?xml\b[^>]*>[^<]*)?(?:<!--.*?-->[^<]*)*(?:<svg|<!DOCTYPE svg)\b", re.DOTALL)
+    file_data = file.file.read().decode("latin_1")
+
+    if svg_regex.match(file_data) is None:
         raise SVGValidationError()
 
 
