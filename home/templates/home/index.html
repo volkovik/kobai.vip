@@ -8,5 +8,11 @@
 </head>
 <body>
     <h1>Home page</h1>
+    {% for link in links %}
+        <p>
+            <img src="{{ link.icon.url }}" alt="1" width="24" height="24">
+            <a href="{{ link.url }}">{{ link.name }}</a>
+        </p>
+    {% endfor %}
 </body>
 </html>

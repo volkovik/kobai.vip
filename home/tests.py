@@ -17,7 +17,7 @@ class LinkIconTestCase(TestCase):
             link = Link.objects.create(
                 name="Example",
                 url="https://example.com/",
-                icon=File(file, name=file.name)
+                icon=File(file, name=file.name) 
             )
             link.full_clean()
 
