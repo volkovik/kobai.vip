@@ -26,16 +26,9 @@ class SVGValidationError(ValidationError):
 class Link(models.Model):
     """Django model for social & media links"""
 
-    name = models.CharField(
-        verbose_name="Name",
-        unique=True,
-        max_length=32
-    )
-    url = models.URLField(
-        verbose_name="URL"
-    )
+    name = models.CharField(max_length=32, unique=True)
+    url = models.URLField(verbose_name="URL")
     icon = models.FileField(
-        verbose_name="Icon",
         upload_to="images/links/",
         help_text="Only SVG files. The image will be used to show links on home page",
         validators=[validate_svg_file]
@@ -43,3 +36,23 @@ class Link(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class Post(models.Model):
+    """Django model for works of portfolio"""
+
+    title = models.CharField(max_length=64)
+    image = models.ImageField(upload_to="images/posts/")
+    comment = models.TextField(max_length=256)
+    creation_date = models.DateField()
+
+    def __str__(self) -> str:
+        return f"Post of {self.creation_date}"
+    
+
+class LinkOnPost(models.Model):
+    """Django model for links linked to posts"""
+
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    name = models.CharField(max_length=32, unique=True)
+    url = models.URLField(verbose_name="URL")
