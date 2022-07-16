@@ -1,12 +1,12 @@
 from django.http import HttpRequest
 from django.shortcuts import render
-from django.http import HttpRequest
 
-from home.models import Link
+from home.models import Link, Post
 
 
 def index(request: HttpRequest):
-    """View for home page"""
+    """Home page view"""
     links = Link.objects.all()
+    posts = Post.objects.all()
 
-    return render(request, "home/index.html", {"links": links})
+    return render(request, "home/index.html", {"links": links, "posts": posts})

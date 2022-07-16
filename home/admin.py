@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html, escape
 
-from home.models import Link, Post, LinkOnPost
+from home.models import Link, Post, PostLink
 
 
 @admin.register(Link)
@@ -13,8 +13,8 @@ class LinkAdmin(admin.ModelAdmin):
         return format_html(f'<img width="64" height="64" src="{escape(object.icon.url)}" style="filter: invert(1);">')
 
 
-class LinkOnPostInline(admin.TabularInline):
-    model = LinkOnPost
+class PostLinkInline(admin.TabularInline):
+    model = PostLink
     verbose_name = "Link"
     verbose_name_plural = "Links"
     extra = 0
@@ -22,7 +22,7 @@ class LinkOnPostInline(admin.TabularInline):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    inlines = [LinkOnPostInline]
+    inlines = [PostLinkInline]
     list_display = ["image_preview_short", "creation_date"]
     readonly_fields = ["image_preview"]
 

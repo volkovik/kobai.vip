@@ -19,6 +19,8 @@ def validate_svg_file(file: models.FileField) -> None:
 
 
 class SVGValidationError(ValidationError):
+    """Custom exception class for non-SVG type files"""
+
     def __init__(self, *args, **kwargs) -> None:
         super().__init__("File must be SVG type", *args, **kwargs)
 
@@ -43,16 +45,16 @@ class Post(models.Model):
 
     title = models.CharField(max_length=64)
     image = models.ImageField(upload_to="images/posts/")
-    comment = models.TextField(max_length=256)
+    description = models.TextField(max_length=256)
     creation_date = models.DateField()
 
     def __str__(self) -> str:
         return f"Post of {self.creation_date}"
     
 
-class LinkOnPost(models.Model):
-    """Django model for links linked to posts"""
+class PostLink(models.Model):
+    """Django model for links that are related to post"""
 
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    name = models.CharField(max_length=32, unique=True)
+    post = models.ForeignKey(Post, related_name="link", on_delete=models.CASCADE)
+    name = models.CharField(max_length=32)
     url = models.URLField(verbose_name="URL")
