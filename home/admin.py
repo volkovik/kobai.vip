@@ -1,16 +1,17 @@
 from django.contrib import admin
 from django.utils.html import format_html, escape
+from adminsortable2.admin import SortableAdminMixin
 
 from home.models import Link, Post, PostLink
 
 
 @admin.register(Link)
-class LinkAdmin(admin.ModelAdmin):
+class LinkAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ["name", "url"]
     readonly_fields = ["icon_preview"]
 
-    def icon_preview(self, object: Link):
-        return format_html(f'<img width="64" height="64" src="{escape(object.icon.url)}" style="filter: invert(1);">')
+    def icon_preview(self, link: Link):
+        return format_html(f'<img width="64" height="64" src="{escape(link.icon.url)}" style="filter: invert(1);">')
 
 
 class PostLinkInline(admin.TabularInline):

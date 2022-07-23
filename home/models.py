@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 
-def validate_svg_file(file: models.FileField) -> None:
+def validate_svg_file(file) -> None:
     """Validating SVG files for FileField in django models"""
     
     # Checking filetype in name of the file
@@ -35,9 +35,13 @@ class Link(models.Model):
         help_text="Only SVG files. The image will be used to show links on home page",
         validators=[validate_svg_file]
     )
+    order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
     def __str__(self) -> str:
         return self.name
+
+    class Meta:
+        ordering = ["order"]
 
 
 class Post(models.Model):
