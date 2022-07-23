@@ -12,7 +12,7 @@ DIR_LINK_ICONS = "static/migrations/home/link_icons"
 
 
 def create_default_link_objects(*_) -> None:
-    for filename in os.listdir(DIR_LINK_ICONS):
+    for order, filename in enumerate(os.listdir(DIR_LINK_ICONS)):
         filepath = os.path.join(DIR_LINK_ICONS, filename)
 
         if os.path.isfile(filepath):
@@ -20,7 +20,8 @@ def create_default_link_objects(*_) -> None:
                 link = home.models.Link(
                     name=filename.split(".")[0],
                     url="https://example.com/",
-                    icon=File(file, name=filename)
+                    icon=File(file, name=filename),
+                    order=order
                 )
                 link.save()
 
