@@ -1,4 +1,4 @@
-{% load l10n %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,29 +7,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kobai</title>
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
 </head>
 <body>
-    <h1>Kobai</h1>
+    <main>
+        <div id="content">
+            <div class="cover">
+                <div id="cover__content">
+                    <h1>kobai</h1>
+                    <div class="links-bar">
+                        {% for link in links %}
+                            <a href="{{ link.url }}" class="link" style="background-image: url('{{ link.icon.url }}');"></a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="other">
 
-    {% for link in links %}
-        <p>
-            <img src="{{ link.icon.url }}" alt="{{ link.name }}" width="24" height="24">
-            <a href="{{ link.url }}">{{ link.name }}</a>
-        </p>
-    {% endfor %}
-
-    <h3>Posts</h3>
-    {% for post in posts %}
-        <div class="post">
-            <label class="post-title">{{ post.title }}</label>
-            <img src="{{ post.image.url }}" alt="{{ post.title }}" height=500>
-            <p class="post-creation">{{ post.creation_date|date }}</p>
-            <p class="post-description">{{ post.description }}</p>
-            <h5>Links:</h5>
-            {% for link in post.link.all %}
-                <a href="{{ link.url }}">{{ link.name }}</a>
-            {% endfor %}
+            </div>
         </div>
-    {% endfor %}
+    </main>
+    <script src="{% static 'scripts/main.js' %}"></script>
 </body>
 </html>
