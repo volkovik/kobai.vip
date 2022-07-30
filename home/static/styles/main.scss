@@ -30,6 +30,16 @@ html, body {
   justify-content: center;
   align-items: center;
 
+  #logo {
+    display: flex;
+    justify-content: center;
+
+    h1 {
+      font-size: 7em;
+      margin: 0.1em;
+    }
+  }
+
   .links-bar {
     display: flex;
     flex-direction: row;

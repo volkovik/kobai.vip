@@ -22,6 +22,14 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   justify-content: center;
   align-items: center;
 }
+.cover #logo {
+  display: flex;
+  justify-content: center;
+}
+.cover #logo h1 {
+  font-size: 7em;
+  margin: 0.1em;
+}
 .cover .links-bar {
   display: flex;
   flex-direction: row;
