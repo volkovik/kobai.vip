@@ -35,7 +35,7 @@ class Link(models.Model):
         help_text="Only SVG files. The image will be used to show links on home page",
         validators=[validate_svg_file]
     )
-    order = models.PositiveIntegerField(default=0, blank=False, null=False)
+    order = models.PositiveSmallIntegerField(default=0, blank=False, null=False)
 
     def __str__(self) -> str:
         return self.name
@@ -48,7 +48,6 @@ class Post(models.Model):
     """Django model for works of portfolio"""
 
     title = models.CharField(max_length=64)
-    image = models.ImageField(upload_to="images/posts/")
     description = models.TextField(max_length=256)
     creation_date = models.DateField()
 
@@ -57,8 +56,29 @@ class Post(models.Model):
     
 
 class PostLink(models.Model):
-    """Django model for links that are related to post"""
+    """Django model for links that are related to a post"""
 
     post = models.ForeignKey(Post, related_name="link", on_delete=models.CASCADE)
     name = models.CharField(max_length=32)
     url = models.URLField(verbose_name="URL")
+    order = models.PositiveSmallIntegerField(default=0, blank=False, null=False)
+
+    def __str__(self) -> str:
+        return ""
+
+    class Meta:
+        ordering = ["order"]
+
+
+class PostImage(models.Model):
+    """Django model for images that are related to a post"""
+
+    post = models.ForeignKey(Post, related_name="image", on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="images/posts")
+    order = models.PositiveSmallIntegerField(default=0, blank=False, null=False)
+
+    def __str__(self) -> str:
+        return ""
+
+    class Meta:
+        ordering = ["order"]

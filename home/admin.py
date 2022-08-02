@@ -1,36 +1,71 @@
 from django.contrib import admin
 from django.utils.html import format_html, escape
-from adminsortable2.admin import SortableAdminMixin
+from adminsortable2.admin import SortableAdminMixin, SortableAdminBase, SortableInlineAdminMixin
 
-from home.models import Link, Post, PostLink
+from home.models import Link, Post, PostLink, PostImage
+
+
+def image_html(source: str, **kwargs) -> str:
+    """Generate a image HTML tag (<img/>)"""
+    params = [f'src="{escape(source)}"'] + [f'{key}="{value}"' for key, value in kwargs.items()]
+    return format_html(f"<img {' '.join(params)}/>")
 
 
 @admin.register(Link)
 class LinkAdmin(SortableAdminMixin, admin.ModelAdmin):
-    list_display = ["name", "url"]
-    readonly_fields = ["icon_preview"]
+    """Admin model for links"""
 
-    def icon_preview(self, link: Link) -> str:
-        return format_html(f'<img width="64" height="64" src="{escape(link.icon.url)}" style="filter: invert(1);">')
+    list_display = ["name", "thumbnail_column", "url"]
+    readonly_fields = ["thumbnail_field"]
 
+    def thumbnail_field(self, link: Link) -> str:
+        """Icon preview field"""
+        return image_html(link.icon.url, width=64, height=64)
+    thumbnail_field.short_description = "Preview"
 
-class PostLinkInline(admin.TabularInline):
-    model = PostLink
-    verbose_name = "Link"
-    verbose_name_plural = "Links"
-    extra = 0
+    def thumbnail_column(self, link: Link) -> str:
+        """Icon preview in list as a category"""
+        return image_html(link.icon.url, width=16, height=16)
+    thumbnail_column.short_description = "Preview"
 
 
 @admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
-    inlines = [PostLinkInline]
-    list_display = ["image_preview_short", "creation_date"]
-    readonly_fields = ["image_preview"]
+class PostAdmin(SortableAdminBase, admin.ModelAdmin):
+    class PostImageInline(SortableInlineAdminMixin, admin.StackedInline):
+        """Inline admin model for images of post"""
 
-    def image_preview(self, post: Post) -> str:
-        return format_html(f'<img height="256" src="{escape(post.image.url)}">')
+        model = PostImage
+        verbose_name = "Image"
+        verbose_name_plural = "Images"
 
-    def image_preview_short(self, post: Post) -> str:
-        return format_html(f'<img height="100" src="{escape(post.image.url)}">')
+        extra = 0
+        min_num = 1
+        max_num = 10
 
-    image_preview_short.short_description = "Image"
+        readonly_fields = ["thumbnail"]
+
+        def thumbnail(self, post_image: PostImage) -> str:
+            """Image preview field"""
+            return image_html(post_image.image.url, height=256)
+
+    class PostLinkInline(SortableInlineAdminMixin, admin.TabularInline):
+        """Inline admin model for links of post"""
+
+        model = PostLink
+        verbose_name = "Link"
+        verbose_name_plural = "Links"
+
+        extra = 0
+        min_num = 0
+        max_num = 10
+
+    inlines = [PostImageInline, PostLinkInline]
+    list_display = ["thumbnail_column", "title", "creation_date"]
+
+    def thumbnail_column(self, post: Post) -> str:
+        post_image = post.image.order_by("order").first()
+        if post_image is not None:
+            return image_html(post_image.image.url, height=128)
+        else:
+            return ""
+    thumbnail_column.short_description = "Preview"
