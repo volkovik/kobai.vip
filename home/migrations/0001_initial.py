@@ -17,7 +17,7 @@ def create_default_link_objects(*_) -> None:
             link = home.models.Link(
                 name=filename.split(".")[0],
                 url="https://example.com/",
-                icon=filepath,
+                icon=f"images/links/{filename}",
                 order=order
             )
             link.save()
