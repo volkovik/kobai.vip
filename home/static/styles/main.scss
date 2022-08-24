@@ -1,3 +1,9 @@
+// Constant variables
+$resolutions: [350px, 480px, 600px, 768px, 900px, 1200px];
+$resizing_animation: height 300ms ease;
+
+
+// Mixins
 @mixin hide-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -10,83 +16,150 @@
 html, body {
   @include hide-scrollbar;
 
+  // Removing default spaces
   margin: 0;
   padding: 0;
 }
 
-.content {
-  display: flex;
-  flex-direction: row;
-}
-
-.cover {
+#landing {
   height: 100vh;
   width: 100vw;
 
-  color: white;
-  background-color: #1b1b1b;
+  background-image: url("../images/background.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
 
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 
-  #logo {
+  #landing-center {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #landing-comment {
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+
+    color: #9499c9;
+    opacity: 42%;
+    font-family: "Arial", serif;
+
     display: flex;
     justify-content: center;
+    margin-bottom: 0.5em;
 
-    h1 {
-      font-size: 7em;
-      margin: 0.1em;
+    filter: drop-shadow(0 0 35px #FFF) drop-shadow(0 0 50px #FFF); // Glow effect
+
+    // Noise for glow effect
+    background-image: url("../images/comment_noise.png");
+    background-repeat: repeat;
+    background-position: center;
+    background-size: auto;
+
+    // Resizing font size in different resolutions of page
+    @media screen {
+      $comment-font-size: 32px; // Font size in full HD resolution of the page
+      $coefficients: [0.5, 0.6, 0.8, 0.85, 0.9, 1];
+
+      @each $res, $cef in zip($resolutions, $coefficients) {
+        @media (min-width: $res) {
+          font-size: $comment-font-size * $cef;
+        }
+      }
+    }
+  }
+
+  #logo {
+    position: relative;
+
+    // Resizing logo in different resolutions of page
+    @media screen {
+      $logo-height: 570px; // Logo height in full HD resolution of the page
+      $zoom_coefficients: [.338, .476, .595, .762, .87, 1];
+
+      @each $res, $cef in zip($resolutions, $zoom_coefficients) {
+        @media (min-width: $res) {
+          height: $logo-height * $cef;
+
+          #logo-title, .logo-character {
+            height: $logo-height * $cef;
+          }
+        }
+      }
+    }
+
+    // Z-direction ordering
+    .logo-character {
+      z-index: 1;
+    }
+
+    #logo-title {
+      z-index: 2;
+    }
+
+    #logo-title, .logo-character {
+      position: absolute;
+
+      margin: auto;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+
+      transition: $resizing_animation;
     }
   }
 
   .links-bar {
     display: flex;
-    flex-direction: row;
     justify-content: center;
-    align-items: center;
+
+    // Noise for glow effect
+    background-image: url("../images/links_noise.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto;
+
+    transition: $resizing_animation;
+
+    z-index: 3;
+
+    @media screen {
+      $link-height: 40px;
+      $link-margin: 11px;
+      $zoom_coefficients: [.65, .9, .85, .85, .9, 1];
+
+      @each $res, $cef in zip($resolutions, $zoom_coefficients) {
+        @media (min-width: $res) {
+          .link {
+            margin: $link-margin * $cef;
+
+            img {
+              height: $link-height * $cef;
+              width: $link-height * $cef;
+            }
+          }
+        }
+      }
+    }
 
     .link {
-      height: 2em;
-      width: 2em;
-      margin: 0.5em;
-
-      background-repeat: no-repeat;
-      background-position: center;
-
-      filter: brightness(0) invert(1);
+      // Making icons into white and glow effect
+      filter: brightness(0) invert(1) drop-shadow(0 0 20px #FFF) drop-shadow(0 0 50px #FFF);
+      transition: $resizing_animation;
     }
   }
 }
 
-.other {
+#content {
   height: 100vh;
   width: 100vw;
-}
-
-@media screen and (orientation: landscape) {
-  main {
-    @include hide-scrollbar;
-
-    // Horizontal scrolling settings
-
-    width: 100vh;
-    height: 100vw;
-
-    transform: rotate(-90deg) translateX(-100vh);
-    transform-origin: top left;
-
-    overflow-y: scroll;
-    overflow-x: hidden;
-
-    position: absolute;
-
-    #content {
-      height: 100vh;
-      width: 200vw;
-
-      transform: rotate(90deg) translateY(-100vh);
-      transform-origin: top left;
-    }
-  }
 }

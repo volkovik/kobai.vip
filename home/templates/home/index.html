@@ -11,25 +11,28 @@
     <link rel="stylesheet" href="{% static 'styles/main.css' %}">
 </head>
 <body>
-    <main>
-        <div id="content">
-            <div class="cover">
-                <div id="cover__content">
-                    <div id="logo">
-                        <h1>kobai</h1>
-                    </div>
-                    <div class="links-bar">
-                        {% for link in links %}
-                            <a href="{{ link.url }}" class="link" style="background-image: url('{{ link.icon.url }}');"></a>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <div class="other">
 
-            </div>
+<div id="landing">
+    <div id="landing-center">
+        <div id="logo">
+            <img id="logo-title" src="{% static 'images/logo.png' %}" alt="">
+            <img id="toro" class="logo-character" src="{% static 'images/toro.png' %}" alt="">
+            <img id="kuro" class="logo-character" src="{% static 'images/kuro.png' %}" alt="">
         </div>
-    </main>
-    <script src="{% static 'scripts/main.js' %}"></script>
+        <div class="links-bar">
+            {% for link in links %}
+                <a href="{{ link.url }}" class="link"><img src="{{ link.icon.url }}" alt="{{ link.name }}"/></a>
+            {% endfor %}
+        </div>
+    </div>
+    <p id="landing-comment">kobai is not a thing neither a person it's a cat!</p>
+</div>
+
+<div id="content">
+    <p>text</p>
+</div>
+
+<script src="{% static 'scripts/main.js' %}"></script>
+
 </body>
 </html>

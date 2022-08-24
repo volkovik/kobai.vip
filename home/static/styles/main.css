@@ -8,69 +8,208 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   display: none;
 }
 
-.content {
-  display: flex;
-  flex-direction: row;
-}
-
-.cover {
+#landing {
   height: 100vh;
   width: 100vw;
-  color: white;
-  background-color: #1b1b1b;
+  background-image: url("../images/background.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+}
+#landing #landing-center {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#landing #landing-comment {
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  color: #9499c9;
+  opacity: 42%;
+  font-family: "Arial", serif;
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin-bottom: 0.5em;
+  filter: drop-shadow(0 0 35px #FFF) drop-shadow(0 0 50px #FFF);
+  background-image: url("../images/comment_noise.png");
+  background-repeat: repeat;
+  background-position: center;
+  background-size: auto;
 }
-.cover #logo {
+@media screen and (min-width: 350px) {
+  #landing #landing-comment {
+    font-size: 16px;
+  }
+}
+@media screen and (min-width: 480px) {
+  #landing #landing-comment {
+    font-size: 19.2px;
+  }
+}
+@media screen and (min-width: 600px) {
+  #landing #landing-comment {
+    font-size: 25.6px;
+  }
+}
+@media screen and (min-width: 768px) {
+  #landing #landing-comment {
+    font-size: 27.2px;
+  }
+}
+@media screen and (min-width: 900px) {
+  #landing #landing-comment {
+    font-size: 28.8px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  #landing #landing-comment {
+    font-size: 32px;
+  }
+}
+#landing #logo {
+  position: relative;
+}
+@media screen and (min-width: 350px) {
+  #landing #logo {
+    height: 192.66px;
+  }
+  #landing #logo #logo-title, #landing #logo .logo-character {
+    height: 192.66px;
+  }
+}
+@media screen and (min-width: 480px) {
+  #landing #logo {
+    height: 271.32px;
+  }
+  #landing #logo #logo-title, #landing #logo .logo-character {
+    height: 271.32px;
+  }
+}
+@media screen and (min-width: 600px) {
+  #landing #logo {
+    height: 339.15px;
+  }
+  #landing #logo #logo-title, #landing #logo .logo-character {
+    height: 339.15px;
+  }
+}
+@media screen and (min-width: 768px) {
+  #landing #logo {
+    height: 434.34px;
+  }
+  #landing #logo #logo-title, #landing #logo .logo-character {
+    height: 434.34px;
+  }
+}
+@media screen and (min-width: 900px) {
+  #landing #logo {
+    height: 495.9px;
+  }
+  #landing #logo #logo-title, #landing #logo .logo-character {
+    height: 495.9px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  #landing #logo {
+    height: 570px;
+  }
+  #landing #logo #logo-title, #landing #logo .logo-character {
+    height: 570px;
+  }
+}
+#landing #logo .logo-character {
+  z-index: 1;
+}
+#landing #logo #logo-title {
+  z-index: 2;
+}
+#landing #logo #logo-title, #landing #logo .logo-character {
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transition: height 300ms ease;
+}
+#landing .links-bar {
   display: flex;
   justify-content: center;
-}
-.cover #logo h1 {
-  font-size: 7em;
-  margin: 0.1em;
-}
-.cover .links-bar {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.cover .links-bar .link {
-  height: 2em;
-  width: 2em;
-  margin: 0.5em;
+  background-image: url("../images/links_noise.png");
   background-repeat: no-repeat;
   background-position: center;
-  filter: brightness(0) invert(1);
+  background-size: auto;
+  transition: height 300ms ease;
+  z-index: 3;
+}
+@media screen and (min-width: 350px) {
+  #landing .links-bar .link {
+    margin: 7.15px;
+  }
+  #landing .links-bar .link img {
+    height: 26px;
+    width: 26px;
+  }
+}
+@media screen and (min-width: 480px) {
+  #landing .links-bar .link {
+    margin: 9.9px;
+  }
+  #landing .links-bar .link img {
+    height: 36px;
+    width: 36px;
+  }
+}
+@media screen and (min-width: 600px) {
+  #landing .links-bar .link {
+    margin: 9.35px;
+  }
+  #landing .links-bar .link img {
+    height: 34px;
+    width: 34px;
+  }
+}
+@media screen and (min-width: 768px) {
+  #landing .links-bar .link {
+    margin: 9.35px;
+  }
+  #landing .links-bar .link img {
+    height: 34px;
+    width: 34px;
+  }
+}
+@media screen and (min-width: 900px) {
+  #landing .links-bar .link {
+    margin: 9.9px;
+  }
+  #landing .links-bar .link img {
+    height: 36px;
+    width: 36px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  #landing .links-bar .link {
+    margin: 11px;
+  }
+  #landing .links-bar .link img {
+    height: 40px;
+    width: 40px;
+  }
+}
+#landing .links-bar .link {
+  filter: brightness(0) invert(1) drop-shadow(0 0 20px #FFF) drop-shadow(0 0 50px #FFF);
+  transition: height 300ms ease;
 }
 
-.other {
+#content {
   height: 100vh;
   width: 100vw;
-}
-
-@media screen and (orientation: landscape) {
-  main {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    width: 100vh;
-    height: 100vw;
-    transform: rotate(-90deg) translateX(-100vh);
-    transform-origin: top left;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    position: absolute;
-  }
-  main::-webkit-scrollbar {
-    display: none;
-  }
-  main #content {
-    height: 100vh;
-    width: 200vw;
-    transform: rotate(90deg) translateY(-100vh);
-    transform-origin: top left;
-  }
 }
 
 /*# sourceMappingURL=main.css.map */
