@@ -13,6 +13,70 @@ $resizing_animation: height 300ms ease;
   }
 }
 
+//  global context flags using wierd ☠️ names to minimize
+//  chance of naming conflicts with other scss variables
+$☠️--animation-timeline-duration: null;
+$☠️--animation-timeline-tweens  : null;
+
+//  mixin to create an animation context for nested tweens
+//  used to calculate the total duration of the animation
+//  converting each tween delay into percentages
+@mixin animation-timeline($name: unique-id()) {
+
+    //  global context flag to sum up duration
+    $☠️--animation-timeline-duration: 0s !global;
+
+    //  global context map to hold animation tweens
+    $☠️--animation-timeline-tweens  : () !global;
+
+    //  mixin content (the included tweens)
+    @content;
+
+    //  animation name and duration
+    //  note! if no name is provided a unique id will be used
+    //  this allows you to create one-time-use animations without
+    //  having to deal with animation naming conflicts :-)
+    animation-name:     $name;
+    animation-duration: $☠️--animation-timeline-duration;
+
+    //  create keyframes if duration is more than 0s
+    @if $☠️--animation-timeline-duration > 0s {
+        @keyframes #{$name} {
+            //  loop through the included tweens
+            @each $time, $props in $☠️--animation-timeline-tweens {
+                //  calculate percentage based on total duration
+                #{percentage($time/$☠️--animation-timeline-duration)}{
+                    //  print out the tween properties
+                    @each $prop, $value in $props {
+                        #{$prop}:$value;
+                    }
+                }
+            }
+        }
+    }
+
+    //  reset global context flags
+    $☠️--animation-timeline-duration: null !global;
+    $☠️--animation-timeline-tweens  : null !global;
+}
+
+
+//  mixin to create tweens based on a delay and a map
+//  containing the the tween properties*
+//
+//  * using a map is not optimal – but for now you are not
+//  able to save @content to variables :(
+//
+@mixin tween($delay: 0s, $props: null){
+    //  only do stuff if we are in a animation-timeline context
+    @if $☠️--animation-timeline-tweens {
+        //  increment the total animation duration by the the tween delay
+        $☠️--animation-timeline-duration: $☠️--animation-timeline-duration + $delay !global;
+        //  save current duration and tween props to the global tween map
+        $☠️--animation-timeline-tweens: map-merge($☠️--animation-timeline-tweens, ($☠️--animation-timeline-duration: $props)) !global;
+    }
+}
+
 html, body {
   @include hide-scrollbar;
 
@@ -152,9 +216,109 @@ html, body {
     }
 
     .link {
+      @mixin link_light_on {
+        filter: brightness(0) invert(1) drop-shadow(0 0 20px #FFF) drop-shadow(0 0 50px #FFF);
+        opacity: 1;
+      }
+
+      @mixin link_light_off {
+        filter: brightness(0) invert(0.4);
+        opacity: 0.8;
+      }
+
+      @mixin link_light_high_voltage {
+        filter: brightness(0) invert(1) drop-shadow(0 0 20px #FFF) drop-shadow(0 0 50px #FFF) drop-shadow(0 0 30px #FFF);
+        opacity: 1;
+      }
+
       // Making icons into white and glow effect
-      filter: brightness(0) invert(1) drop-shadow(0 0 20px #FFF) drop-shadow(0 0 50px #FFF);
-      transition: $resizing_animation;
+      @include link_light_on;
+
+      &.link-flickering-animation-1 {
+        animation: flickering-1 2s;
+
+        @keyframes flickering-1 {
+          20% {
+            @include link_light_off;
+          }
+          24% {
+            @include link_light_on;
+          }
+          28% {
+            @include link_light_off;
+          }
+          60% {
+            @include link_light_high_voltage;
+          }
+          to {
+            @include link_light_on;
+          }
+        }
+      }
+
+      &.link-flickering-animation-2 {
+        animation: flickering-2 2s;
+
+        @keyframes flickering-2 {
+          20% {
+            @include link_light_off;
+          }
+          21% {
+            @include link_light_on;
+          }
+
+          23% {
+            @include link_light_off;
+          }
+          24% {
+            @include link_light_on;
+          }
+
+          26% {
+            @include link_light_off;
+          }
+          27% {
+            @include link_light_on;
+          }
+
+          29% {
+            @include link_light_off;
+          }
+          30% {
+            @include link_light_high_voltage;
+          }
+
+          70% {
+            @include link_light_off;
+          }
+        }
+        }
+
+        &.link-flickering-animation-3 {
+          animation: flickering-3 3s;
+
+          @keyframes flickering-3 {
+            20% {
+              @include link_light_off;
+            }
+            40% {
+              @include link_light_high_voltage;
+            }
+            60% {
+              @include link_light_on;
+            }
+
+            70% {
+              @include link_light_on;
+            }
+            72.5% {
+              @include link_light_off;
+            }
+            75% {
+              @include link_light_high_voltage;
+            }
+          }
+        }
     }
   }
 }
