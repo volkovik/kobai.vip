@@ -162,11 +162,11 @@ html, body {
 
     // Z-direction ordering
     .logo-character {
-      z-index: 1;
+      z-index: 9;
     }
 
     #logo-title {
-      z-index: 2;
+      z-index: 10;
     }
 
     #logo-title, .logo-character {
@@ -326,4 +326,22 @@ html, body {
 #content {
   height: 100vh;
   width: 100vw;
+}
+
+.paw {
+  background-image: url("../images/paw.svg");
+  background-size: 10px;
+  background-repeat: no-repeat;
+  background-position: left;
+  position: absolute;
+  filter: invert(1);
+  z-index: 8;
+  height: 10px;
+  width: 20px;
+  opacity: 35%;
+  transition: opacity 300ms ease-in;
+}
+
+.paw-right {
+  background-position: right;
 }
