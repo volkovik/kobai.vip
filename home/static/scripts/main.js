@@ -44,8 +44,8 @@ document.addEventListener("mousemove", (event) => {
     const foot = document.createElement("div");
     document.body.append(foot);
     foot.classList.add("paw");
-    foot.style.top = Y + "px";
-    foot.style.left = X + "px";
+    foot.style.top = event.pageY + "px";
+    foot.style.left = event.pageX + "px";
 
     if (isRight === true) {
         foot.classList.add("paw-right");
@@ -57,7 +57,6 @@ document.addEventListener("mousemove", (event) => {
         lastCursorPosition[1] - event.pageY
     )
     foot.style.transform = `rotate(${rotateAngle}rad)`;
-    console.log(rotateAngle)
 
     setTimeout(function () {
         foot.style.opacity = "0";

@@ -1,0 +1,268 @@
+// Constant variables
+$resolutions: [350px, 480px, 600px, 768px, 900px, 1200px]
+$resizing_animation: height 300ms ease
+
+
+// Mixins
+@mixin hide-scrollbar
+  scrollbar-width: none
+  -ms-overflow-style: none
+
+  &::-webkit-scrollbar
+    display: none
+
+
+html, body
+  @include hide-scrollbar
+
+  // Removing default spaces
+  margin: 0
+  padding: 0
+
+
+// Paws appearing towards the cursor
+.paw
+  background-image: url("../images/paw.svg")
+  background-size: 10px
+  background-repeat: no-repeat
+  background-position: left
+  position: absolute
+  filter: invert(1)
+  z-index: 8
+  height: 10px
+  width: 20px
+  opacity: 35%
+  transition: opacity 300ms ease-in
+
+
+.paw-right
+  background-position: right
+
+
+#landing
+  height: 100vh
+  width: 100vw
+
+  background-image: url("../images/background.jpg")
+  background-repeat: no-repeat
+  background-position: center center
+  background-size: cover
+
+  display: flex
+  flex-direction: column
+
+  #landing-center
+    flex-grow: 1
+    flex-shrink: 1
+    flex-basis: auto
+
+    display: flex
+    flex-direction: column
+    justify-content: center
+
+  #landing-comment
+    flex-grow: 0
+    flex-shrink: 1
+    flex-basis: auto
+
+    color: #9499c9
+    opacity: 42%
+    font-family: "Arial", serif
+
+    display: flex
+    justify-content: center
+    margin-bottom: 0.5em
+
+    filter: drop-shadow(0 0 35px #FFF) drop-shadow(0 0 50px #FFF) // Glow effect
+
+    // Noise for glow effect
+    background-image: url("../images/comment_noise.png")
+    background-repeat: repeat
+    background-position: center
+    background-size: auto
+
+    // Resizing font size in different resolutions of page
+    @media screen
+      $comment-font-size: 32px
+      // Font size in full HD resolution of the page
+      $coefficients: [0.5, 0.6, 0.8, 0.85, 0.9, 1]
+
+      @each $res, $cef in zip($resolutions, $coefficients)
+        @media (min-width: $res)
+          font-size: $comment-font-size * $cef
+
+
+#logo
+  position: relative
+
+  // Z-direction ordering
+  .logo-character
+    z-index: 9
+    display: flex
+    align-content: center
+
+  .logo-title
+    z-index: 10
+
+  #logo-stroke
+    position: relative
+    overflow: hidden
+    -webkit-mask-image: url("../images/logo_stroke.png")
+    -webkit-mask-repeat: no-repeat
+    -webkit-mask-position: bottom center
+
+    &:before
+      content: ""
+      background: conic-gradient(white, black, white, black, white, black, white)
+      position: absolute
+      width: 200%
+      height: 200%
+      top: -60%
+      left: -50%
+      z-index: -1
+
+      animation-name: rotate_background
+      animation-duration: 10s
+      animation-iteration-count: infinite
+      animation-timing-function: linear
+      animation-delay: 0s
+
+      @keyframes rotate_background
+        from
+          transform: rotate(0deg)
+        to
+          transform: rotate(360deg)
+
+  .logo-title, .logo-character
+    position: absolute
+
+    margin: auto
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+
+  // Resizing logo in different resolutions of page
+  @media screen
+    $logo-height: 570px
+    // Logo height in full HD resolution of the page
+    $zoom_coefficients: [.338, .476, .595, .762, .87, 1]
+
+    @each $res, $cef in zip($resolutions, $zoom_coefficients)
+      @media (min-width: $res)
+        height: $logo-height * $cef
+
+        .logo-title, .logo-character
+          height: $logo-height * $cef
+
+        #logo-stroke
+          -webkit-mask-size: auto $logo-height * $cef
+
+
+.links-bar
+  display: flex
+  justify-content: center
+
+  // Noise for glow effect
+  background-image: url("../images/links_noise.png")
+  background-repeat: no-repeat
+  background-position: center
+  background-size: auto
+
+  transition: $resizing_animation
+
+  z-index: 3
+
+  @media screen
+    $link-height: 40px
+    $link-margin: 11px
+    $zoom_coefficients: [.65, .9, .85, .85, .9, 1]
+
+    @each $res, $cef in zip($resolutions, $zoom_coefficients)
+      @media (min-width: $res)
+        .link
+          margin: $link-margin * $cef
+
+          img
+            height: $link-height * $cef
+            width: $link-height * $cef
+
+  .link
+    transition: $resizing_animation
+
+    // States of link light
+    @mixin link_light_on
+      filter: brightness(0) invert(1) drop-shadow(0 0 20px #FFF) drop-shadow(0 0 50px #FFF)
+      opacity: 1
+
+    @mixin link_light_off
+      filter: brightness(0) invert(0.4)
+      opacity: 0.8
+
+    @mixin link_light_high_voltage
+      filter: brightness(0) invert(1) drop-shadow(0 0 20px #FFF) drop-shadow(0 0 50px #FFF) drop-shadow(0 0 30px #FFF)
+      opacity: 1
+
+    // Making icons into white and glow effect
+    @include link_light_on
+
+    &.link-flickering-animation-1
+      animation: flickering-1 2s
+
+      @keyframes flickering-1
+        20%
+          @include link_light_off
+        24%
+          @include link_light_on
+
+        28%
+          @include link_light_off
+        60%
+          @include link_light_high_voltage
+        100%
+          @include link_light_on
+
+    &.link-flickering-animation-2
+      animation: flickering-2 2s
+
+      @keyframes flickering-2
+        20%
+          @include link_light_off
+        21%
+          @include link_light_on
+
+        23%
+          @include link_light_off
+        24%
+          @include link_light_on
+
+        26%
+          @include link_light_off
+        27%
+          @include link_light_on
+
+        29%
+          @include link_light_off
+        30%
+          @include link_light_high_voltage
+
+        70%
+          @include link_light_off
+
+    &.link-flickering-animation-3
+      animation: flickering-3 3s
+
+      @keyframes flickering-3
+        20%
+          @include link_light_off
+        40%
+          @include link_light_high_voltage
+        60%
+          @include link_light_on
+
+        70%
+          @include link_light_on
+        72.5%
+          @include link_light_off
+        75%
+          @include link_light_high_voltage
