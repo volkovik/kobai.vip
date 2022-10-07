@@ -35,6 +35,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   background-size: cover;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 #landing #landing-center {
   flex-grow: 1;
