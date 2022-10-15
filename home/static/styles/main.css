@@ -47,14 +47,13 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   background-position: center center;
   background-size: cover;
   opacity: 0;
-  animation-name: fadeOut;
+  animation-name: fadeOut-id;
   animation-delay: 4.5s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
-@keyframes fadeOut {
+@keyframes fadeOut-id {
   from {
-    color: transparent;
     opacity: 0;
   }
   to {
@@ -74,6 +73,11 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   justify-content: center;
 }
 #landing #landing-comment p {
+  opacity: 0;
+  animation-name: fadeOut-id;
+  animation-delay: 4s;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
   flex-grow: 0;
   flex-shrink: 1;
   flex-basis: auto;
@@ -87,6 +91,14 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   background-repeat: repeat;
   background-position: center;
   background-size: auto;
+}
+@keyframes fadeOut-id {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 32%;
+  }
 }
 @media screen and (min-width: 350px) {
   #landing #landing-comment p {
@@ -129,14 +141,13 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 }
 #logo #logo-body {
   opacity: 0;
-  animation-name: fadeOut;
+  animation-name: fadeOut-id;
   animation-delay: 3.4s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
-@keyframes fadeOut {
+@keyframes fadeOut-id {
   from {
-    color: transparent;
     opacity: 0;
   }
   to {
@@ -182,14 +193,13 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 }
 #logo #toro {
   opacity: 0;
-  animation-name: fadeOut;
+  animation-name: fadeOut-id;
   animation-delay: 3s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
-@keyframes fadeOut {
+@keyframes fadeOut-id {
   from {
-    color: transparent;
     opacity: 0;
   }
   to {
@@ -198,14 +208,13 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 }
 #logo #kuro {
   opacity: 0;
-  animation-name: fadeOut;
+  animation-name: fadeOut-id;
   animation-delay: 3.2s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
-@keyframes fadeOut {
+@keyframes fadeOut-id {
   from {
-    color: transparent;
     opacity: 0;
   }
   to {
@@ -281,7 +290,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 
 .links-bar {
   opacity: 0;
-  animation-name: fadeOut;
+  animation-name: fadeOut-id;
   animation-delay: 3.8s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
@@ -294,9 +303,8 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   transition: height 300ms ease;
   z-index: 3;
 }
-@keyframes fadeOut {
+@keyframes fadeOut-id {
   from {
-    color: transparent;
     opacity: 0;
   }
   to {
