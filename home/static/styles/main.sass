@@ -11,6 +11,21 @@ $resizing_animation: height 300ms ease
   &::-webkit-scrollbar
     display: none
 
+@mixin fadeout-start-animation($delay, $opacity)
+  opacity: 0
+
+  @keyframes fadeOut
+    from
+      color: transparent
+      opacity: 0
+    to
+      opacity: $opacity
+
+  animation-name: fadeOut
+  animation-delay: $delay
+  animation-duration: 1s
+  animation-fill-mode: forwards
+
 
 html, body
   @include hide-scrollbar
@@ -18,6 +33,8 @@ html, body
   // Removing default spaces
   margin: 0
   padding: 0
+
+  background-color: black
 
 
 // Paws appearing towards the cursor
@@ -34,23 +51,37 @@ html, body
   opacity: 35%
   transition: opacity 300ms ease-in
 
-
 .paw-right
   background-position: right
 
 
+// Main part of the website: logo, links and other stylish things
 #landing
+  $landing-background: url("../images/background.jpg")
+
   height: 100vh
   width: 100vw
 
-  background-image: url("../images/background.jpg")
-  background-repeat: no-repeat
-  background-position: center center
-  background-size: cover
+  // Making possible make effect on background image of #langing element
+  position: relative
+  &:before
+    content: ""
+    position: absolute
+    left: 0
+    top: 0
+    width: 100%
+    height: 100%
+
+    background-image: $landing-background
+    background-repeat: no-repeat
+    background-position: center center
+    background-size: cover
+
+    @include fadeout-start-animation(4.5s, 100%)
+
 
   display: flex
   flex-direction: column
-
   overflow: hidden
 
   #landing-center
@@ -63,37 +94,41 @@ html, body
     justify-content: center
 
   #landing-comment
-    flex-grow: 0
-    flex-shrink: 1
-    flex-basis: auto
-
-    color: #9499c9
-    opacity: 42%
-    font-family: "Arial", serif
-
     display: flex
     justify-content: center
-    margin-bottom: 0.5em
 
-    filter: drop-shadow(0 0 35px #FFF) drop-shadow(0 0 50px #FFF) // Glow effect
+    p
+      flex-grow: 0
+      flex-shrink: 1
+      flex-basis: auto
 
-    // Noise for glow effect
-    background-image: url("../images/comment_noise.png")
-    background-repeat: repeat
-    background-position: center
-    background-size: auto
+      color: #9499c9
+      font-family: "Arial", serif
 
-    // Resizing font size in different resolutions of page
-    @media screen
-      $comment-font-size: 32px
-      // Font size in full HD resolution of the page
-      $coefficients: [0.5, 0.6, 0.8, 0.85, 0.9, 1]
+      display: flex
+      justify-content: center
+      margin-bottom: 0.5em
 
-      @each $res, $cef in zip($resolutions, $coefficients)
-        @media (min-width: $res)
-          font-size: $comment-font-size * $cef
+      filter: drop-shadow(0 0 35px #FFF) drop-shadow(0 0 50px #FFF) // Glow effect
+
+      // Noise for glow effect
+      background-image: url("../images/comment_noise.png")
+      background-repeat: repeat
+      background-position: center
+      background-size: auto
+
+      // Resizing font size in different resolutions of page
+      @media screen
+        $comment-font-size: 32px
+        // Font size in full HD resolution of the page
+        $coefficients: [0.5, 0.6, 0.8, 0.85, 0.9, 1]
+
+        @each $res, $cef in zip($resolutions, $coefficients)
+          @media (min-width: $res)
+            font-size: $comment-font-size * $cef
 
 
+// Logo: has a four components (characters, logo body and their stroke)
 #logo
   position: relative
 
@@ -103,15 +138,43 @@ html, body
     display: flex
     align-content: center
 
+  #logo-body
+      @include fadeout-start-animation(3.4s, 100%)
+
   .logo-title
     z-index: 10
 
   #logo-stroke
     position: relative
     overflow: hidden
+
     -webkit-mask-image: url("../images/logo_stroke.png")
     -webkit-mask-repeat: no-repeat
     -webkit-mask-position: bottom center
+
+    //transform: scale(0.5)
+    //
+    //animation-name: scaling
+    //animation-delay: 2s
+    //animation-duration: 1s
+    //animation-iteration-count: 1
+    //animation-fill-mode: forwards
+    //
+    //@keyframes scaling
+    //  29.9%
+    //    transform: scale(0.5)
+    //  30%
+    //    transform: scale(2)
+    //  49.9%
+    //    transform: scale(2)
+    //  50%
+    //    transform: scale(1.5)
+    //  69.9%
+    //    transform: scale(1.5)
+    //  70%
+    //    transform: scale(0.5)
+    //  100%
+    //    transform: scale(1)
 
     &:before
       content: ""
@@ -123,11 +186,7 @@ html, body
       left: -50%
       z-index: -1
 
-      animation-name: rotate_background
-      animation-duration: 10s
-      animation-iteration-count: infinite
-      animation-timing-function: linear
-      animation-delay: 0s
+      animation: 10s linear rotate_background infinite
 
       @keyframes rotate_background
         from
@@ -143,6 +202,12 @@ html, body
     right: 0
     top: 0
     bottom: 0
+
+  #toro
+    @include fadeout-start-animation(3s, 100%)
+
+  #kuro
+    @include fadeout-start-animation(3.2s, 100%)
 
   // Resizing logo in different resolutions of page
   @media screen
@@ -162,6 +227,8 @@ html, body
 
 
 .links-bar
+  @include fadeout-start-animation(3.8s, 100%)
+
   display: flex
   justify-content: center
 
