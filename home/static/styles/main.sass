@@ -14,15 +14,15 @@ $resizing_animation: height 300ms ease
 @mixin fadeout-start-animation($delay, $opacity)
   opacity: 0
 
-  $id: random(10000000)
+  $id: unique-id()
 
-  @keyframes fadeOut-#{id}
+  @keyframes fadeOut-#{$id}
     from
       opacity: 0
     to
       opacity: $opacity
 
-  animation-name: fadeOut-#{id}
+  animation-name: fadeOut-#{$id}
   animation-delay: $delay
   animation-duration: 1s
   animation-fill-mode: forwards

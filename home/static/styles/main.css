@@ -47,12 +47,12 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   background-position: center center;
   background-size: cover;
   opacity: 0;
-  animation-name: fadeOut-id;
+  animation-name: fadeOut-uartyzo;
   animation-delay: 4.5s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
-@keyframes fadeOut-id {
+@keyframes fadeOut-uartyzo {
   from {
     opacity: 0;
   }
@@ -74,7 +74,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 }
 #landing #landing-comment p {
   opacity: 0;
-  animation-name: fadeOut-id;
+  animation-name: fadeOut-uartz0g;
   animation-delay: 4s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
@@ -92,7 +92,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   background-position: center;
   background-size: auto;
 }
-@keyframes fadeOut-id {
+@keyframes fadeOut-uartz0g {
   from {
     opacity: 0;
   }
@@ -141,12 +141,12 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 }
 #logo #logo-body {
   opacity: 0;
-  animation-name: fadeOut-id;
+  animation-name: fadeOut-uartz1d;
   animation-delay: 3.4s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
-@keyframes fadeOut-id {
+@keyframes fadeOut-uartz1d {
   from {
     opacity: 0;
   }
@@ -193,12 +193,12 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 }
 #logo #toro {
   opacity: 0;
-  animation-name: fadeOut-id;
+  animation-name: fadeOut-uartz1g;
   animation-delay: 3s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
-@keyframes fadeOut-id {
+@keyframes fadeOut-uartz1g {
   from {
     opacity: 0;
   }
@@ -208,12 +208,12 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 }
 #logo #kuro {
   opacity: 0;
-  animation-name: fadeOut-id;
+  animation-name: fadeOut-uartz1r;
   animation-delay: 3.2s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
-@keyframes fadeOut-id {
+@keyframes fadeOut-uartz1r {
   from {
     opacity: 0;
   }
@@ -290,7 +290,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 
 .links-bar {
   opacity: 0;
-  animation-name: fadeOut-id;
+  animation-name: fadeOut-uartz2k;
   animation-delay: 3.8s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
@@ -303,7 +303,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   transition: height 300ms ease;
   z-index: 3;
 }
-@keyframes fadeOut-id {
+@keyframes fadeOut-uartz2k {
   from {
     opacity: 0;
   }
