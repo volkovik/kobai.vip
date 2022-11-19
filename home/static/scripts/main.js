@@ -17,6 +17,28 @@ Array.from(document.getElementsByClassName("link")).forEach(function (link) {
     }, false);
 });
 
+function changeBackground() {
+    let element = document.getElementById("landing")
+    let backgroundUrl = getComputedStyle(element, "::before").getPropertyValue("background-image");
+    let currentBackgroundNumber = parseInt(backgroundUrl.charAt(backgroundUrl.length - 7))
+    let nextBackgroundNumber = currentBackgroundNumber < 4 ?  currentBackgroundNumber + 1 : 1
+
+    console.log(nextBackgroundNumber)
+    console.log(backgroundUrl)
+
+    element.style.setProperty("--background-url", `url(\"/static/images/background-${nextBackgroundNumber}.jpg\")`)
+}
+
+setInterval(changeBackground, 5750);
+
+document.addEventListener("mousemove", function (event) {
+    // Parallax background image
+    let x = (event.pageX - window.innerWidth / 2) / 35 * -1
+    let y = (event.pageY - window.innerHeight / 2) / 35 * -1
+
+    document.getElementById("landing").style.setProperty("--background-transform", `translateX(${x}px) translateY(${y}px) scale(1.1)`)
+})
+
 // let lastCursorPosition = [0, 0];
 // let isRight = false;
 //

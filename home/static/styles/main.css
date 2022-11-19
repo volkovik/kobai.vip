@@ -28,6 +28,8 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 }
 
 #landing {
+  --background-url: url("../images/background-1.jpg");
+  --background-transform: scale(1.1);
   height: 100vh;
   width: 100vw;
   position: relative;
@@ -42,17 +44,19 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   top: 0;
   width: 100%;
   height: 100%;
-  background-image: url("../images/background.jpg");
+  background-image: var(--background-url);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+  transition: background-image 5.5s linear;
+  transform: var(--background-transform);
   opacity: 0;
-  animation-name: fadeOut-uartyzo;
+  animation-name: fadeOut-uiuvxyc;
   animation-delay: 4.5s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
-@keyframes fadeOut-uartyzo {
+@keyframes fadeOut-uiuvxyc {
   from {
     opacity: 0;
   }
@@ -74,7 +78,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 }
 #landing #landing-comment p {
   opacity: 0;
-  animation-name: fadeOut-uartz0g;
+  animation-name: fadeOut-uiuvxyf;
   animation-delay: 4s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
@@ -92,7 +96,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   background-position: center;
   background-size: auto;
 }
-@keyframes fadeOut-uartz0g {
+@keyframes fadeOut-uiuvxyf {
   from {
     opacity: 0;
   }
@@ -141,12 +145,12 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 }
 #logo #logo-body {
   opacity: 0;
-  animation-name: fadeOut-uartz1d;
+  animation-name: fadeOut-uiuvxzd;
   animation-delay: 3.4s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
-@keyframes fadeOut-uartz1d {
+@keyframes fadeOut-uiuvxzd {
   from {
     opacity: 0;
   }
@@ -193,12 +197,12 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 }
 #logo #toro {
   opacity: 0;
-  animation-name: fadeOut-uartz1g;
+  animation-name: fadeOut-uiuvxzr;
   animation-delay: 3s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
-@keyframes fadeOut-uartz1g {
+@keyframes fadeOut-uiuvxzr {
   from {
     opacity: 0;
   }
@@ -208,12 +212,12 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 }
 #logo #kuro {
   opacity: 0;
-  animation-name: fadeOut-uartz1r;
+  animation-name: fadeOut-uiuvxzs;
   animation-delay: 3.2s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
-@keyframes fadeOut-uartz1r {
+@keyframes fadeOut-uiuvxzs {
   from {
     opacity: 0;
   }
@@ -290,7 +294,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 
 .links-bar {
   opacity: 0;
-  animation-name: fadeOut-uartz2k;
+  animation-name: fadeOut-uiuvxzv;
   animation-delay: 3.8s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
@@ -303,7 +307,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   transition: height 300ms ease;
   z-index: 3;
 }
-@keyframes fadeOut-uartz2k {
+@keyframes fadeOut-uiuvxzv {
   from {
     opacity: 0;
   }
