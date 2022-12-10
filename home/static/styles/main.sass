@@ -4,6 +4,25 @@ $resizing_animation: height 300ms ease
 
 
 // Mixins
+@mixin transform($transform)
+  -ms-transform: $transform
+  -webkit-transform: $transform
+  transform: $transform
+
+@mixin keyframes($name)
+    @-webkit-keyframes #{$name}
+        @content
+    @keyframes #{$name}
+        @content
+
+@mixin animation($animation)
+  -webkit-animation: $animation
+  animation: $animation
+
+@mixin filter($filter)
+  -webkit-filter: $filter
+  filter: $filter
+
 @mixin hide-scrollbar
   scrollbar-width: none
   -ms-overflow-style: none
@@ -16,16 +35,13 @@ $resizing_animation: height 300ms ease
 
   $id: unique-id()
 
-  @keyframes fadeOut-#{$id}
+  @include keyframes(fadeOut-#{$id})
     from
-      opacity: 0
+        opacity: 0
     to
       opacity: $opacity
 
-  animation-name: fadeOut-#{$id}
-  animation-delay: $delay
-  animation-duration: 1s
-  animation-fill-mode: forwards
+  @include animation(1s linear $delay forwards fadeOut-#{$id})
 
 
 html, body
@@ -45,7 +61,7 @@ html, body
   background-repeat: no-repeat
   background-position: left
   position: absolute
-  filter: invert(1)
+  @include filter(invert(1))
   z-index: 8
   height: 10px
   width: 20px
@@ -59,7 +75,7 @@ html, body
 // Main part of the website: logo, links and other stylish things
 #landing
   --background-url: url("../images/background-1.jpg")
-  --background-transform: scale(1.1)
+  --background-transform: scale3d(1.1, 1.1, 1.1)
 
   height: 100vh
   width: 100vw
@@ -79,7 +95,7 @@ html, body
     background-position: center center
     background-size: cover
     transition: background-image 5.5s linear
-    transform: var(--background-transform)
+    @include transform(var(--background-transform))
 
     @include fadeout-start-animation(4.5s, 100%)
 
@@ -115,7 +131,7 @@ html, body
       justify-content: center
       margin-bottom: 0.5em
 
-      filter: drop-shadow(0 0 35px #FFF) drop-shadow(0 0 50px #FFF) // Glow effect
+      @include filter(drop-shadow(0 0 35px #FFF) drop-shadow(0 0 50px #FFF)) // Glow effect
 
       // Noise for glow effect
       background-image: url("../images/comment_noise.png")
@@ -158,30 +174,6 @@ html, body
     -webkit-mask-repeat: no-repeat
     -webkit-mask-position: bottom center
 
-    //transform: scale(0.5)
-    //
-    //animation-name: scaling
-    //animation-delay: 2s
-    //animation-duration: 1s
-    //animation-iteration-count: 1
-    //animation-fill-mode: forwards
-    //
-    //@keyframes scaling
-    //  29.9%
-    //    transform: scale(0.5)
-    //  30%
-    //    transform: scale(2)
-    //  49.9%
-    //    transform: scale(2)
-    //  50%
-    //    transform: scale(1.5)
-    //  69.9%
-    //    transform: scale(1.5)
-    //  70%
-    //    transform: scale(0.5)
-    //  100%
-    //    transform: scale(1)
-
     &:before
       content: ""
       background: conic-gradient(white, black, white, black, white, black, white)
@@ -192,13 +184,13 @@ html, body
       left: -50%
       z-index: -1
 
-      animation: 10s linear rotate_background infinite
+      @include animation(10s linear rotate_background infinite)
 
-      @keyframes rotate_background
+      @include keyframes(rotate_background)
         from
-          transform: rotate(0deg)
+          @include transform(rotate3d(1, 1, 1, 0deg))
         to
-          transform: rotate(360deg)
+          @include transform(rotate3d(1, 1, 1, 360deg))
 
   .logo-title, .logo-character
     position: absolute
@@ -267,24 +259,24 @@ html, body
 
     // States of link light
     @mixin link_light_on
-      filter: brightness(0) invert(1) drop-shadow(0 0 20px #FFF) drop-shadow(0 0 50px #FFF)
-      opacity: 1
+      @include filter(brightness(0) invert(1) drop-shadow(0 0 20px #FFF) drop-shadow(0 0 50px #FFF))
+      @include transform(opacity(1))
 
     @mixin link_light_off
-      filter: brightness(0) invert(0.4)
-      opacity: 0.8
+      @include filter(brightness(0) invert(0.4))
+      @include transform(opacity(0.8))
 
     @mixin link_light_high_voltage
-      filter: brightness(0) invert(1) drop-shadow(0 0 20px #FFF) drop-shadow(0 0 50px #FFF) drop-shadow(0 0 30px #FFF)
-      opacity: 1
+      @include filter(brightness(0) invert(1) drop-shadow(0 0 20px #FFF) drop-shadow(0 0 50px #FFF) drop-shadow(0 0 30px #FFF))
+      @include transform(opacity(1))
 
     // Making icons into white and glow effect
     @include link_light_on
 
     &.link-flickering-animation-1
-      animation: flickering-1 2s
+      @include animation(flickering-1 2s)
 
-      @keyframes flickering-1
+      @include keyframes(flickering-1)
         20%
           @include link_light_off
         24%
@@ -298,9 +290,9 @@ html, body
           @include link_light_on
 
     &.link-flickering-animation-2
-      animation: flickering-2 2s
+      @include animation(flickering-2 2s)
 
-      @keyframes flickering-2
+      @include keyframes(flickering-2)
         20%
           @include link_light_off
         21%
@@ -325,9 +317,9 @@ html, body
           @include link_light_off
 
     &.link-flickering-animation-3
-      animation: flickering-3 3s
+      @include animation(flickering-3 3s)
 
-      @keyframes flickering-3
+      @include keyframes(flickering-3)
         20%
           @include link_light_off
         40%
