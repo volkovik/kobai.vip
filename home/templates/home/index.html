@@ -13,18 +13,16 @@
 <body>
 
 <div id="landing">
-    <div id="landing-center">
-        <div id="logo">
-            <img id="logo-body" class="logo-title" src="{% static 'images/logo.png' %}" alt="">
-            <div id="logo-stroke" class="logo-title"></div>
-            <img id="toro" class="logo-character" src="{% static 'images/toro.png' %}" alt="">
-            <img id="kuro" class="logo-character" src="{% static 'images/kuro.png' %}" alt="">
-        </div>
-        <div class="links-bar">
-            {% for link in links %}
-                <a href="{{ link.url }}" class="link" target="_blank"><img src="{{ link.icon.url }}" alt="{{ link.name }}"/></a>
-            {% endfor %}
-        </div>
+    <div id="logo">
+        <img id="logo-body" class="logo-title" src="{% static 'images/logo.png' %}" alt="">
+        <div id="logo-stroke" class="logo-title"></div>
+        <img id="toro" class="logo-character" src="{% static 'images/toro.png' %}" alt="">
+        <img id="kuro" class="logo-character" src="{% static 'images/kuro.png' %}" alt="">
+    </div>
+    <div class="links-bar">
+        {% for link in links %}
+            <a href="{{ link.url }}" class="link" target="_blank"><img src="{{ link.icon.url }}" alt="{{ link.name }}"/></a>
+        {% endfor %}
     </div>
 </div>
 
